@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Efectiva Tu Financiera - Módulo Ejecutivo para simulación y gestión de créditos vehiculares">
+    <title>Efectiva - Módulo Ejecutivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ======== HEADER ======== -->
+    <header class="header" id="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <span class="header-logo-name">Efectiva</span>
+                <span class="header-logo-sub">Tu financiera</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-location">
+                <span class="dot"></span>
+                <span id="headerLocationText">Hyundai - Puruchuco</span>
+            </div>
+            <span class="header-badge">EJECUTIVO</span>
+            <div class="header-user" id="headerUser">
+                <div class="header-user-avatar">JU</div>
+                <span class="header-user-name">Hola usuario!</span>
+                <span class="material-icons-outlined header-user-arrow">expand_more</span>
+                <!-- User Dropdown -->
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" class="user-dropdown-item">
+                        <span class="material-icons-outlined">person</span>
+                        Mi perfil
+                    </a>
+                    <a href="#" class="user-dropdown-item">
+                        <span class="material-icons-outlined">tune</span>
+                        Preferencias
+                    </a>
+                    <div class="user-dropdown-divider"></div>
+                    <a href="#" class="user-dropdown-item">
+                        <span class="material-icons-outlined">logout</span>
+                        Cerrar sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- ======== SIDEBAR ======== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-toggle">
+                <button class="sidebar-toggle-btn" id="sidebarToggle" title="Colapsar menú">
+                    <span class="material-icons-outlined">chevron_left</span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-nav-item active" data-module="simulacion" id="navSimulacion">
+                    <span class="material-icons-outlined">calculate</span>
+                    <span class="nav-text">Simulación</span>
+                </a>
+                <a href="#" class="sidebar-nav-item" data-module="bandeja" id="navBandeja">
+                    <span class="material-icons-outlined">inbox</span>
+                    <span class="nav-text">Bandeja de Entrada</span>
+                    <span class="nav-badge">5</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- ======== MAIN CONTENT ======== -->
+        <main class="main-content" id="mainContent">
+
+            <!-- ====== MODULE: SIMULACIÓN ====== -->
+            <section class="module-page active" id="moduloSimulacion">
+                <div class="page-header">
+                    <h1 class="page-title">Simulación</h1>
+                    <p class="page-subtitle">Registra los datos mínimos del cliente para iniciar la evaluación comercial.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header simulacion-card-header">
+                        <div class="card-header-left">
+                            <h3>Datos de simulación</h3>
+                            <p>Los campos marcados con <span class="required-asterisk">*</span> son obligatorios.</p>
+                        </div>
+                        <div class="simulacion-header-controls" id="simulacionHeaderControls">
+                            <div class="simulacion-header-field">
+                                <label class="form-label" for="simConcesionario">Concesionario</label>
+                                <select class="form-control" id="simConcesionario" name="simConcesionario">
+                                    <option value="Hyundai" selected>Hyundai</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Kia">Kia</option>
+                                    <option value="Chevrolet">Chevrolet</option>
+                                    <option value="Nissan">Nissan</option>
+                                </select>
+                            </div>
+                            <div class="simulacion-header-field">
+                                <label class="form-label" for="simSucursal">Sucursal</label>
+                                <select class="form-control" id="simSucursal" name="simSucursal">
+                                    <option value="Puruchuco" selected>Puruchuco</option>
+                                    <option value="San Miguel">San Miguel</option>
+                                    <option value="La Molina">La Molina</option>
+                                    <option value="Surco">Surco</option>
+                                    <option value="Independencia">Independencia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="formSimulacion" autocomplete="off">
+                        <!-- Row 1: Tipo doc + N° doc -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="tipoDocumento">Tipo de documento <span class="required">*</span></label>
+                                <select class="form-control" id="tipoDocumento" name="tipoDocumento">
+                                    <option value="DNI" selected>DNI</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="nroDocumento">N° de documento <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="nroDocumento" name="nroDocumento" placeholder="Ingrese documento" maxlength="8">
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Teléfono + Precio del vehículo -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="nroTelefono">N° de teléfono</label>
+                                <input type="tel" class="form-control" id="nroTelefono" name="nroTelefono" placeholder="Ingrese teléfono" maxlength="9">
+                                <span class="form-hint">Se habilitará al seleccionar Simular.</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="simPrecioVehiculoUsd">Precio del vehículo ($)<span class="required">*</span></label>
+                                <input type="text" class="form-control" id="simPrecioVehiculoUsd" name="simPrecioVehiculoUsd" placeholder="00.00" inputmode="decimal" required>
+                            </div>
+                        </div>
+
+                        <!-- Cónyuge Section -->
+                        <div class="conyuge-section" id="conyugeSection">
+                            <div class="conyuge-header">
+                                <div class="conyuge-info">
+                                    <h4>Cónyuge</h4>
+                                    <p>Activa esta opción si el cliente declara cónyuge.</p>
+                                </div>
+                                <div class="conyuge-toggle-wrapper">
+                                    <span id="labelNo" class="active-label">No</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="toggleConyuge">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span id="labelSi">Sí</span>
+                                </div>
+                            </div>
+
+                            <!-- Datos del cónyuge (hidden by default) -->
+                            <div class="conyuge-data" id="conyugeData" style="display: none;">
+                                <div class="conyuge-data-header">
+                                    <h4>Datos del cónyuge</h4>
+                                    <span class="hint-text">Se habilita al seleccionar "Sí".</span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="tipoDocConyuge">Tipo de documento <span class="required">*</span></label>
+                                        <select class="form-control" id="tipoDocConyuge" name="tipoDocConyuge">
+                                            <option value="DNI" selected>DNI</option>
+                                            <option value="CE">CE</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="nroDocConyuge">N° de documento <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="nroDocConyuge" name="nroDocConyuge" placeholder="Ingrese documento" maxlength="12" inputmode="numeric" pattern="[0-9]*">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Footer -->
+                        <div class="form-footer">
+                            <span class="form-footer-disclaimer" id="disclaimerLink">
+                                El cliente acepta que sus datos ingresados serán utilizados para la simulación y evaluación preliminar de crédito
+                            </span>
+                            <div class="form-footer-actions">
+                                <button type="button" class="btn btn-limpiar" id="btnLimpiar">Limpiar</button>
+                                <button type="button" class="btn btn-simular" id="btnSimular" disabled>Simular</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ====== VIEW: EVALUACIÓN Y CÁLCULO ====== -->
+            <section class="module-page" id="moduloResultado">
+                <div class="stage-navigation-tabs" id="resultadoStageTabs" aria-label="Etapas de la solicitud"></div>
+
+                <!-- Solicitud Info Card -->
+                <div class="card resultado-card resultado-fixed-header">
+                    <div class="resultado-fixed-grid">
+                        <div class="resultado-fixed-item resultado-fixed-solicitud">
+                            <span class="resultado-label">N° de solicitud</span>
+                            <h2 class="resultado-solicitud-id" id="resSolicitudId">SOL-2026-00012345</h2>
+                            <p class="resultado-solicitud-msg">La solicitud ha sido creada y almacenada en su bandeja.</p>
+                        </div>
+                        <div class="resultado-fixed-item resultado-fixed-resultado-only">
+                            <span class="resultado-label">Tipo de documento</span>
+                            <p class="resultado-fixed-value" id="resTipoDoc">DNI</p>
+                        </div>
+                        <div class="resultado-fixed-item resultado-fixed-resultado-only">
+                            <span class="resultado-label">N° de documento</span>
+                            <p class="resultado-fixed-value" id="resNroDoc">00000000</p>
+                        </div>
+                        <div class="resultado-fixed-item resultado-fixed-calculo-only">
+                            <span class="resultado-label">Capacidad máxima</span>
+                            <p class="resultado-fixed-value" id="resFixedCapacidadMaxima">S/ 0.00</p>
+                        </div>
+                        <div class="resultado-fixed-item resultado-fixed-calculo-only">
+                            <span class="resultado-label">Inicial mínima</span>
+                            <p class="resultado-fixed-value" id="resFixedInicialMinima">10%</p>
+                        </div>
+                        <div class="resultado-fixed-item resultado-fixed-calculo-only">
+                            <span class="resultado-label">Segmento</span>
+                            <p class="resultado-fixed-value" id="resFixedSegmento">REGULAR</p>
+                        </div>
+                        <div class="resultado-fixed-item resultado-fixed-date">
+                            <span class="material-icons-outlined resultado-fecha-icon">calendar_today</span>
+                            <div>
+                                <span class="resultado-label">Fecha y hora de consulta</span>
+                                <p class="resultado-fecha-value" id="resFechaHora">17/06/2026 10:27 a. m.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flujo-tabs">
+                    <button type="button" class="flujo-tab-btn active" id="tabResultadoBtn" data-target="tabResultado">
+                        <span class="flujo-tab-number">01</span>
+                        <span class="flujo-tab-title">Resultado de evaluación preliminar</span>
+                        <span class="flujo-tab-subtitle">Evaluación del cliente</span>
+                    </button>
+                    <button type="button" class="flujo-tab-btn" id="tabCalculoBtn" data-target="tabCalculo">
+                        <span class="flujo-tab-number">02</span>
+                        <span class="flujo-tab-title">Cálculo</span>
+                        <span class="flujo-tab-subtitle">Parámetros y cuotas</span>
+                    </button>
+                </div>
+
+                <div class="flujo-tab-content active" id="tabResultado">
+
+                <div class="page-header">
+                    <p class="page-subtitle">Consulta el resultado de la evaluación preliminar del cliente.</p>
+                </div>
+
+                <!-- Datos del Cónyuge -->
+                <div class="card resultado-card resultado-conyuge-card" id="resConyugeCard" style="display: none;">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <h3>Datos del cónyuge</h3>
+                            <p>Información declarada en la simulación.</p>
+                        </div>
+                    </div>
+                    <div class="resultado-conyuge-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="resTipoDocConyuge">Tipo de documento</label>
+                            <input type="text" class="form-control" id="resTipoDocConyuge" value="DNI" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="resNroDocConyuge">N° de documento</label>
+                            <input type="text" class="form-control" id="resNroDocConyuge" value="" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monto Preaprobado -->
+                <div class="resultado-monto-card">
+                    <span class="resultado-monto-label">Monto preaprobado</span>
+                    <h2 class="resultado-monto-value" id="resMontoPreaprobado">S/ 300,000.00</h2>
+                    <div class="resultado-monto-details">
+                        <span>Cuota inicial mínima: <strong id="resInicialMinimaPorcentaje">10%</strong></span>
+                        <span class="resultado-monto-separator">|</span>
+                        <span>Plazo máximo: <strong>60 meses</strong></span>
+                    </div>
+                </div>
+
+                <!-- Resultado Calificación -->
+                <div class="card resultado-card resultado-calificacion califica">
+                    <div class="resultado-calificacion-content">
+                        <div class="resultado-calificacion-icon">
+                            <span class="material-icons-outlined">check_circle</span>
+                        </div>
+                        <div>
+                            <span class="resultado-calificacion-label">Resultado de calificación</span>
+                            <h3 class="resultado-calificacion-value" id="resCalificacion">CALIFICA</h3>
+                            <p class="resultado-calificacion-msg" id="resCalificacionMsg">El cliente cumple con los criterios de evaluación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Cards Row: Segmento, Ingreso, Cuota -->
+                <div class="resultado-info-row">
+                    <div class="card resultado-info-card">
+                        <div class="resultado-info-icon green-bg">
+                            <span class="material-icons-outlined">verified_user</span>
+                        </div>
+                        <div>
+                            <span class="resultado-info-label">Segmento de riesgo</span>
+                            <h4 class="resultado-info-value" id="resSegmentoRiesgo">REGULAR</h4>
+                        </div>
+                    </div>
+                    <div class="card resultado-info-card">
+                        <div class="resultado-info-icon blue-bg">
+                            <span class="material-icons-outlined">account_balance_wallet</span>
+                        </div>
+                        <div>
+                            <span class="resultado-info-label">Ingreso estimado</span>
+                            <h4 class="resultado-info-value" id="resIngresoEstimado">S/ 5,850.00</h4>
+                        </div>
+                    </div>
+                    <div class="card resultado-info-card">
+                        <div class="resultado-info-icon blue-dark-bg">
+                            <span class="material-icons-outlined">receipt_long</span>
+                        </div>
+                        <div>
+                            <span class="resultado-info-label">Capacidad de cuota máxima</span>
+                            <span class="resultado-info-sublabel">según monto preaprobado e ingreso estimado</span>
+                            <h4 class="resultado-info-value" id="resCuotaMaxima">S/ 2,047.50</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PEP & PLAFT -->
+                <div class="card resultado-card">
+                    <div class="resultado-pep-row">
+                        <div class="resultado-pep-item">
+                            <div class="resultado-pep-icon">
+                                <span class="material-icons-outlined">person</span>
+                            </div>
+                            <div>
+                                <span class="resultado-pep-label">PEP</span>
+                                <h4 class="resultado-pep-value" id="resPep">No Aplica</h4>
+                                <p class="resultado-pep-msg" id="resPepMsg">El cliente no está identificado como PEP.</p>
+                            </div>
+                        </div>
+                        <div class="resultado-pep-divider"></div>
+                        <div class="resultado-pep-item">
+                            <div class="resultado-pep-icon">
+                                <span class="material-icons-outlined">security</span>
+                            </div>
+                            <div>
+                                <span class="resultado-pep-label">PLAFT</span>
+                                <h4 class="resultado-pep-value" id="resPlaft">Sin observaciones</h4>
+                                <p class="resultado-pep-msg" id="resPlaftMsg">El cliente no presenta observaciones en listas restrictivas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="resultado-actions">
+                    <button type="button" class="btn btn-outline btn-regresar" id="btnRegresar">Regresar</button>
+                    <button type="button" class="btn btn-primary btn-continuar" id="btnContinuarSolicitud">Siguiente</button>
+                </div>
+            
+                </div>
+
+                <div class="flujo-tab-content" id="tabCalculo">
+
+                <div class="page-header">
+                    <p class="page-subtitle">Completa los parámetros de crédito para generar la grilla de cuotas y determinar la carretera aplicable.</p>
+                </div>
+
+                <div class="card calculo-card">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <h3>Parámetros del crédito</h3>
+                            <p>Completa la información por sección para preparar la simulación del crédito.</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="calcTea" value="12.80%">
+                    <input type="hidden" id="calcMonedaCredito" value="PEN">
+
+                    <div class="calculo-sections">
+                        <section class="calculo-param-section">
+                            <h4>Vehículo / operación</h4>
+                            <div class="calculo-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="calcTipoCambio">Tipo de cambio</label>
+                                    <input type="text" class="form-control" id="calcTipoCambio" value="3.78">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcPrecioUsd">Precio del vehículo ($)</label>
+                                    <input type="text" class="form-control" id="calcPrecioUsd" value="15000.00">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcCuotaInicial">Monto de cuota inicial</label>
+                                    <div class="cuota-inicial-inline">
+                                        <input type="text" class="form-control" id="calcCuotaInicial" value="6500.00">
+                                        <input type="text" class="form-control cuota-inicial-percent" id="calcCuotaInicialPorcentaje" value="43.33%" readonly title="Porcentaje de cuota inicial sobre el precio del vehículo">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcPlazoSeleccionado">Plazo seleccionado</label>
+                                    <select class="form-control" id="calcPlazoSeleccionado">
+                                        <option value="12">12 meses</option>
+                                        <option value="24" selected>24 meses</option>
+                                        <option value="36">36 meses</option>
+                                        <option value="48">48 meses</option>
+                                        <option value="60">60 meses</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="calculo-param-section">
+                            <h4>Seguros</h4>
+                            <div class="calculo-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="calcTipoSeguroVehicular">Tipo de seguro vehicular</label>
+                                    <select class="form-control" id="calcTipoSeguroVehicular">
+                                        <option value="CON_SEGURO" selected>Con seguro</option>
+                                        <option value="ENDOSADO">Endosado</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcPorcentajeSeguroVehicular">Porcentaje anual de seguro vehicular (%)</label>
+                                    <input type="text" class="form-control" id="calcPorcentajeSeguroVehicular" value="0.00%" placeholder="0.00%" inputmode="decimal">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcDesgravamen">Seguro de desgravamen</label>
+                                    <select class="form-control" id="calcDesgravamen">
+                                        <option value="CON_SEGURO" selected>Con seguro</option>
+                                        <option value="ENDOSADO">Endosado</option>
+                                        <option value="SIN_SEGURO">Sin seguro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group desgravamen-type-group" id="calcTipoSeguroDesgravamenGroup">
+                                    <label class="form-label" for="calcTipoSeguroDesgravamen">Tipo de seguro desgravamen</label>
+                                    <select class="form-control" id="calcTipoSeguroDesgravamen">
+                                        <option value="Individual" selected>Individual</option>
+                                        <option value="Devolución">Devolución</option>
+                                        <option value="Con asistencia">Con asistencia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="calculo-param-section">
+                            <h4>GPS</h4>
+                            <div class="calculo-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="calcGps">GPS</label>
+                                    <select class="form-control" id="calcGps">
+                                        <option value="SI" selected>Con GPS</option>
+                                        <option value="NO">Sin GPS</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="calcTipoGpsGroup">
+                                    <label class="form-label" for="calcTipoGps">Tipo de GPS</label>
+                                    <select class="form-control" id="calcTipoGps">
+                                        <option value="Premium" selected>Premium</option>
+                                        <option value="Basico">Básico</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcCostoGps">Costo asociado ($)</label>
+                                    <input type="text" class="form-control" id="calcCostoGps" value="650.00">
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="calculo-param-section">
+                            <h4>Gastos</h4>
+                            <div class="calculo-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="calcRegistral">Gastos registrales</label>
+                                    <select class="form-control" id="calcRegistral">
+                                        <option value="SI" selected>Sí</option>
+                                        <option value="NO">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcNotarial">Gastos notariales</label>
+                                    <select class="form-control" id="calcNotarial">
+                                        <option value="SI" selected>Sí</option>
+                                        <option value="NO">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcTomaFirmas">Toma de firmas</label>
+                                    <select class="form-control" id="calcTomaFirmas">
+                                        <option value="SI" selected>Sí</option>
+                                        <option value="NO">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcPortes">Portes</label>
+                                    <select class="form-control" id="calcPortes">
+                                        <option value="SI">Sí</option>
+                                        <option value="NO" selected>No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calcCuotasDobles">Cuotas Dobles</label>
+                                    <select class="form-control" id="calcCuotasDobles">
+                                        <option value="No" selected>No</option>
+                                        <option value="Si">Si</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="calcMesesCuotasDoblesGroup" style="display: none;">
+                                    <label class="form-label" for="calcMesesCuotasDobles">Meses de cuotas dobles</label>
+                                    <input type="text" class="form-control" id="calcMesesCuotasDobles" value="Agosto / Enero" readonly>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="calculo-param-section">
+                            <h4>Ingresos</h4>
+                            <div class="calculo-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="calcIngresoEstimado">Ingreso estimado</label>
+                                    <input type="text" class="form-control" id="calcIngresoEstimado" value="S/ 0.00" readonly>
+                                </div>
+                                <div class="form-group calc-ingreso-declarado-group">
+                                    <label class="form-label" for="calcIngresoDeclarado">Ingreso declarado (Soles)</label>
+                                    <div class="calc-ingreso-piloto-row">
+                                        <input type="text" class="form-control" id="calcIngresoDeclarado" placeholder="00.00" value="">
+                                        <label class="calc-piloto-checkbox-card" for="calcCasoPiloto">
+                                            <input type="checkbox" id="calcCasoPiloto" disabled>
+                                            <span>El caso cumple las condiciones del piloto</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="form-footer calculo-footer">
+                        <div class="calculo-footer-fields">
+                            <div class="form-group calculo-telefono-politicas">
+                                <label class="form-label" for="calcTelefonoPoliticas">N° de teléfono</label>
+                                <input type="tel" class="form-control" id="calcTelefonoPoliticas" placeholder="Ingrese teléfono" maxlength="9">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="calcMontoFinanciar">Monto a financiar</label>
+                                <input type="text" class="form-control" id="calcMontoFinanciar" value="S/ 0.00" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="calcDiaPago">Día de pago</label>
+                                <select class="form-control" id="calcDiaPago">
+                                    <option value="03" selected>03</option>
+                                    <option value="05">05</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-recalcular" id="btnCalcularCuotas">
+                            <span class="material-icons-outlined">calculate</span>
+                            Calcular
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card calculo-resultado-card" id="calcResultadoCard" style="display: none;">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <h3>Resultado del cálculo</h3>
+                            <p>Selecciona una fila de la grilla para continuar con la solicitud.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive calculo-table-wrapper">
+                        <table class="calculo-table">
+                            <thead>
+                                <tr>
+                                    <th>Plazo</th>
+                                    <th>TEA</th>
+                                    <th>Cuota</th>
+                                    <th>Capacidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calcCuotasBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="calculo-politicas">
+                        <div class="policy-card">
+                            <span class="policy-label">Carretera aplicable según política de Riesgos</span>
+                            <strong id="calcCarretera">-</strong>
+                        </div>
+                        <div class="policy-card">
+                            <span class="policy-label">Documentos requeridos según la carretera resultante</span>
+                            <strong id="calcDocumentos">-</strong>
+                        </div>
+                        <div class="policy-card">
+                            <span class="policy-label">Verificación aplicable según política de Riesgos</span>
+                            <strong id="calcVerificacion">-</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resultado-actions calculo-actions">
+                    <button type="button" class="btn btn-outline btn-regresar" id="btnRegresarCalculo">Regresar</button>
+                    <button type="button" class="btn btn-primary btn-continuar is-disabled" id="btnContinuarDesdeCalculo" aria-disabled="true">Continuar con solicitud</button>
+                </div>
+            
+                </div>
+            </section>
+
+            <!-- ====== VIEW: REGISTRO DE SOLICITUD ====== -->
+            <section class="module-page" id="moduloRegistroSolicitud">
+                <div class="stage-navigation-tabs" id="registroStageTabs" aria-label="Etapas de la solicitud"></div>
+
+                <!-- Header Info Bar -->
+                <div class="registro-header-bar">
+                    <div class="header-bar-item">
+                        <span class="header-bar-label">SOLICITUD:</span>
+                        <span class="header-bar-value" id="regSolicitudId">SDLS2927</span>
+                    </div>
+                    <div class="header-bar-item registro-stage-item" id="regEtapaWrapper">
+                        <span class="header-bar-label">ETAPA:</span>
+                        <span class="header-bar-value" id="regEtapa">SOLICITUD</span>
+                    </div>
+                    <div class="header-bar-item registro-status-item" id="regEstadoWrapper">
+                        <span class="header-bar-label">ESTADO:</span>
+                        <span class="header-bar-value status-value" id="regEstado">PENDIENTE</span>
+                    </div>
+                    <div class="header-bar-item">
+                        <span class="header-bar-label">CARRETERA:</span>
+                        <span class="header-bar-value carretera-badge carretera-express" id="regCartera">EXPRESS</span>
+                    </div>
+                    <div class="header-bar-item registro-fecha-item">
+                        <span class="header-bar-label">FECHA Y HORA DE SIMULACIÓN:</span>
+                        <span class="header-bar-value" id="regFechaSimulacion">22-05-2026 15:30:00</span>
+                    </div>
+                    <span id="regUsuario" hidden>ALOCHA</span>
+                </div>
+
+                <!-- Barra fija de identificación del cliente -->
+                <div class="registro-identificacion-sticky" id="registroIdentificacionSticky" aria-hidden="true">
+                    <div class="registro-identificacion-sticky-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="stickyRegTipoDoc">Tipo de documento</label>
+                            <input type="text" class="form-control disabled" id="stickyRegTipoDoc" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="stickyRegNroDoc">Número documento</label>
+                            <input type="text" class="form-control disabled" id="stickyRegNroDoc" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="stickyRegNombres">Nombres</label>
+                            <input type="text" class="form-control" id="stickyRegNombres">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="stickyRegApePaterno">Apellido paterno</label>
+                            <input type="text" class="form-control" id="stickyRegApePaterno">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1. DATOS DE CLIENTE -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>DATOS DE CLIENTE</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label">Tipo de documento</label>
+                            <input type="text" class="form-control disabled" id="regTipoDoc" readonly>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Número documento</label>
+                            <input type="text" class="form-control disabled" id="regNroDoc" readonly>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="regNombres">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Apellido paterno</label>
+                            <input type="text" class="form-control" id="regApePaterno">
+                        </div>
+                        
+                        <div class="form-group w-25">
+                            <label class="form-label">Apellido materno</label>
+                            <input type="text" class="form-control" id="regApeMaterno">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Fecha de nacimiento</label>
+                            <input type="text" class="form-control" id="regFechaNac">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regCelular">Número de celular <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="regCelular" placeholder="Ingrese celular" maxlength="9" required>
+                            <span class="form-hint">El número ingresado se enviará la URL de políticas de privacidad.</span>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Correo electrónico <span class="required">*</span></label>
+                            <input type="email" class="form-control" id="regCorreo" placeholder="Ingrese correo">
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Sexo</label>
+                            <select class="form-control select-arrow" id="regSexo">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-37">
+                            <label class="form-label">Nacionalidad</label>
+                            <input type="text" class="form-control" id="regNacionalidad" placeholder="Ingrese nacionalidad">
+                        </div>
+                        <div class="form-group w-37">
+                            <label class="form-label">Residencia</label>
+                            <input type="text" class="form-control" id="regResidencia" placeholder="Ingrese residencia">
+                        </div>
+
+                        <div class="form-group w-100">
+                            <label class="form-label">Dirección de domicilio <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="regDireccion" placeholder="Ingrese dirección">
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Departamento <span class="required">*</span></label>
+                            <select class="form-control select-arrow" id="regDepartamento">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="LIMA">LIMA</option>
+                                <option value="AREQUIPA">AREQUIPA</option>
+                                <option value="LA LIBERTAD">LA LIBERTAD</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Provincia <span class="required">*</span></label>
+                            <select class="form-control select-arrow" id="regProvincia">
+                                <option value="" disabled selected>Seleccionar</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Distrito <span class="required">*</span></label>
+                            <select class="form-control select-arrow" id="regDistrito">
+                                <option value="" disabled selected>Seleccionar</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Estado civil <span class="required">*</span></label>
+                            <select class="form-control select-arrow" id="regEstadoCivil">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="SOLTERO">Soltero(a)</option>
+                                <option value="CASADO">Casado(a)</option>
+                                <option value="CONVIVIENTE">Conviviente</option>
+                                <option value="DIVORCIADO">Divorciado(a)</option>
+                                <option value="VIUDO">Viudo(a)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group w-25" id="regMancomunaIngresosGroup" style="display: none;">
+                            <label class="form-label">Mancomuna ingresos</label>
+                            <select class="form-control select-arrow" id="regMancomunaIngresos">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="SI">Sí</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group w-25" id="regSeparacionBienesGroup" style="display: none;">
+                            <label class="form-label">Separación de bienes</label>
+                            <select class="form-control select-arrow disabled" id="regSeparacionBienes" disabled>
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="SI">Sí</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATOS DE CÓNYUGE -->
+                <div class="card" id="regConyugeCard" style="display: none;">
+                    <div class="card-header">
+                        <h3>DATOS DE CÓNYUGE</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regConTipoDoc">Tipo de documento</label>
+                            <input type="text" class="form-control disabled" id="regConTipoDoc" readonly>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regConNroDoc">Número de documento</label>
+                            <input type="text" class="form-control disabled" id="regConNroDoc" readonly>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regConApePaterno">Apellido paterno</label>
+                            <input type="text" class="form-control" id="regConApePaterno" placeholder="Ingrese apellido paterno">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regConApeMaterno">Apellido materno</label>
+                            <input type="text" class="form-control" id="regConApeMaterno" placeholder="Ingrese apellido materno">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regConFechaNac">Fecha de nacimiento</label>
+                            <input type="text" class="form-control" id="regConFechaNac" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label" for="regConNacionalidad">Nacionalidad</label>
+                            <input type="text" class="form-control" id="regConNacionalidad" placeholder="Ingrese nacionalidad">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. DATOS LABORALES -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>DATOS LABORALES</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label">Categoría laboral</label>
+                            <select class="form-control select-arrow" id="regCatLaboral">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="DEPENDIENTE">Dependiente</option>
+                                <option value="INDEPENDIENTE">Independiente</option>
+                                <option value="JUBILADO">Jubilado</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">RUC de empleador (no obligatorio)</label>
+                            <input type="text" class="form-control" id="regRucEmpleador" placeholder="Ingrese RUC" maxlength="11">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Nombre centro de laboral</label>
+                            <input type="text" class="form-control" id="regNombreCentroLaboral" placeholder="Ingrese nombre centro laboral">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="regDireccionLaboral" placeholder="Ingrese dirección">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Giro o actividad</label>
+                            <select class="form-control select-arrow" id="regGiroActividad">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="COMERCIO">Comercio</option>
+                                <option value="SERVICIOS">Servicios</option>
+                                <option value="MANUFACTURA">Manufactura</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Cargo</label>
+                            <select class="form-control select-arrow" id="regCargo">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="EMPLEADO">Empleado</option>
+                                <option value="GERENTE">Gerente</option>
+                                <option value="SUBGERENTE">Subgerente</option>
+                                <option value="OPERARIO">Operario</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Fecha ingreso laboral</label>
+                            <div class="date-input-wrapper">
+                                <input type="text" class="form-control" id="regFechaIngresoLab" placeholder="dd / mm / aaaa">
+                                <span class="material-icons-outlined date-icon">calendar_today</span>
+                            </div>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Tipo moneda ingreso</label>
+                            <select class="form-control select-arrow" id="regMonedaIngreso">
+                                <option value="PEN" selected>Soles (S/)</option>
+                                <option value="USD">Dólares ($)</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Ingresos netos mensuales</label>
+                            <input type="text" class="form-control" id="regIngresoNeto" value="S/ 0.00">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 3. INGRESOS -->
+                <div class="card ingresos-card" id="ingresosCard">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <h3>INGRESOS</h3>
+                            <p>Registra los ingresos declarados por el titular. Puedes añadir más de un ingreso.</p>
+                        </div>
+                    </div>
+
+                    <div class="ingresos-section">
+                        <h4 class="ingresos-title">INGRESOS DEL TITULAR</h4>
+                        <div class="ingresos-list" id="ingresosList">
+                            <div class="ingreso-item" data-ingreso-index="1">
+                                <div class="ingreso-item-header">
+                                    <span class="ingreso-badge">Ingreso 1</span>
+                                </div>
+                                <div class="form-grid ingresos-grid">
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Tipo de categoría</label>
+                                        <select class="form-control select-arrow ingreso-categoria">
+                                            <option value="" disabled selected>Seleccionar</option>
+                                            <option value="1RA">1ra categoría</option>
+                                            <option value="2DA">2da categoría</option>
+                                            <option value="3RA">3ra categoría</option>
+                                            <option value="4TA">4ta categoría</option>
+                                            <option value="5TA">5ta categoría</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Perfil</label>
+                                        <select class="form-control select-arrow ingreso-perfil">
+                                            <option value="" disabled selected>Seleccionar</option>
+                                            <option value="FORMAL">Formal</option>
+                                            <option value="INFORMAL">Informal</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Situación laboral</label>
+                                        <select class="form-control select-arrow ingreso-situacion">
+                                            <option value="" disabled selected>Seleccionar</option>
+                                            <option value="DEPENDIENTE">Dependiente</option>
+                                            <option value="INDEPENDIENTE">Independiente</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Fecha de ingreso laboral</label>
+                                        <div class="date-input-wrapper">
+                                            <input type="text" class="form-control ingreso-fecha" placeholder="dd / mm / aaaa">
+                                            <span class="material-icons-outlined date-icon">calendar_today</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">RUC del empleador</label>
+                                        <input type="text" class="form-control ingreso-ruc" placeholder="RUC de 11 dígitos" maxlength="11">
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Ingreso neto mensual</label>
+                                        <input type="text" class="form-control ingreso-monto" value="S/ 0.00">
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">¿Ingreso anualizado?</label>
+                                        <select class="form-control select-arrow ingreso-anualizado">
+                                            <option value="NO" selected>No</option>
+                                            <option value="SI">Sí</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ingresos-actions">
+                            <button type="button" class="btn btn-secondary" id="btnAgregarIngreso">
+                                <span class="material-icons-outlined">add</span>
+                                Añadir ingreso
+                            </button>
+                        </div>
+
+                        <div class="ingresos-total-row">
+                            <span>Total ingresos titular:</span>
+                            <strong id="totalIngresosTitular">S/ 0.00</strong>
+                        </div>
+                    </div>
+
+
+                    <!-- 3.1 INGRESOS CONYUGUE -->
+                    <div class="ingresos-section ingresos-conyuge-section" id="ingresosConyugeCard" style="display: none;">
+                        <h4 class="ingresos-title">INGRESOS DEL CONYUGUE</h4>
+                        <p class="ingresos-section-desc">Registra los ingresos declarados por el cónyuge o conviviente. Puedes añadir más de un ingreso.</p>
+                        <div class="ingresos-list" id="ingresosConyugeList">
+                            <div class="ingreso-item" data-ingreso-index="1">
+                                <div class="ingreso-item-header">
+                                    <span class="ingreso-badge">Ingreso 1</span>
+                                </div>
+                                <div class="form-grid ingresos-grid">
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Tipo de categoría</label>
+                                        <select class="form-control select-arrow ingreso-categoria">
+                                            <option value="" disabled selected>Seleccionar</option>
+                                            <option value="1RA">1ra categoría</option>
+                                            <option value="2DA">2da categoría</option>
+                                            <option value="3RA">3ra categoría</option>
+                                            <option value="4TA">4ta categoría</option>
+                                            <option value="5TA">5ta categoría</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Perfil</label>
+                                        <select class="form-control select-arrow ingreso-perfil">
+                                            <option value="" disabled selected>Seleccionar</option>
+                                            <option value="FORMAL">Formal</option>
+                                            <option value="INFORMAL">Informal</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Situación laboral</label>
+                                        <select class="form-control select-arrow ingreso-situacion">
+                                            <option value="" disabled selected>Seleccionar</option>
+                                            <option value="DEPENDIENTE">Dependiente</option>
+                                            <option value="INDEPENDIENTE">Independiente</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Fecha de ingreso laboral</label>
+                                        <div class="date-input-wrapper">
+                                            <input type="text" class="form-control ingreso-fecha" placeholder="dd / mm / aaaa">
+                                            <span class="material-icons-outlined date-icon">calendar_today</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">RUC del empleador</label>
+                                        <input type="text" class="form-control ingreso-ruc" placeholder="RUC de 11 dígitos" maxlength="11">
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">Ingreso neto mensual</label>
+                                        <input type="text" class="form-control ingreso-monto" value="S/ 0.00">
+                                    </div>
+                                    <div class="form-group w-25">
+                                        <label class="form-label">¿Ingreso anualizado?</label>
+                                        <select class="form-control select-arrow ingreso-anualizado">
+                                            <option value="NO" selected>No</option>
+                                            <option value="SI">Sí</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ingresos-actions">
+                            <button type="button" class="btn btn-secondary" id="btnAgregarIngresoConyuge">
+                                <span class="material-icons-outlined">add</span>
+                                Añadir ingreso
+                            </button>
+                        </div>
+
+                        <div class="ingresos-total-row">
+                            <span>Total ingresos conyugue:</span>
+                            <strong id="totalIngresosConyuge">S/ 0.00</strong>
+                        </div>
+
+                        <div class="ingresos-total-row" id="totalIngresosCombinadoRow">
+                            <span>Total ingresos titular + conyugue:</span>
+                            <strong id="totalIngresosCombinado">S/ 0.00</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DATOS DE VEHÍCULO -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>DATOS DE VEHÍCULO</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label">Estado vehículo</label>
+                            <select class="form-control disabled" id="regVehEstado" disabled>
+                                <option value="Nuevo" selected>Nuevo</option>
+                                <option value="Usado">Usado</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Concesionario</label>
+                            <select class="form-control select-arrow" id="regVehConcesionario">
+                                <option value="Hyundai" selected>Hyundai</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Kia">Kia</option>
+                                <option value="Chevrolet">Chevrolet</option>
+                                <option value="Nissan">Nissan</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Sucursal</label>
+                            <select class="form-control select-arrow" id="regVehTienda">
+                                <option value="Puruchuco" selected>Puruchuco</option>
+                                <option value="San Miguel">San Miguel</option>
+                                <option value="La Molina">La Molina</option>
+                                <option value="Surco">Surco</option>
+                                <option value="Independencia">Independencia</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Tipo Doc. vendedor</label>
+                            <select class="form-control select-arrow" id="regVehTipoDocVendedor">
+                                <option value="DNI" selected>DNI</option>
+                                <option value="CE">CE</option>
+                                <option value="PAS">PAS</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">N° Doc vendedor</label>
+                            <input type="text" class="form-control" id="regVehNroDocVendedor" placeholder="Ingrese documento" maxlength="12" inputmode="numeric">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Nombre completo vendedor</label>
+                            <input type="text" class="form-control" id="regVehVendedor" value="ALOCHA" placeholder="Ingrese nombre completo">
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Marca</label>
+                            <select class="form-control select-arrow" id="regVehMarca">
+                                <option value="Toyota" selected>Toyota</option>
+                                <option value="Hyundai">Hyundai</option>
+                                <option value="Kia">Kia</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Modelo</label>
+                            <select class="form-control select-arrow" id="regVehModelo">
+                                <option value="Corolla" selected>Corolla</option>
+                                <option value="Yaris">Yaris</option>
+                                <option value="Hilux">Hilux</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Año modelo</label>
+                            <input type="text" class="form-control" id="regVehAnio" value="2026">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Tarjeta propiedad a nombre de</label>
+                            <select class="form-control select-arrow" id="regVehTarjetaNombre">
+                                <option value="TITULAR" selected>Titular</option>
+                                <option value="TITULAR_CONYUGE">Titular + cónyuge</option>
+                                <option value="TERCERO">Tercero</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid tercero-propiedad-grid" id="regVehTerceroData" style="display: none;">
+                        <div class="form-group w-25">
+                            <label class="form-label">Tipo de documento</label>
+                            <select class="form-control select-arrow" id="regVehTerceroTipoDoc" disabled>
+                                <option value="DNI" selected>DNI</option>
+                                <option value="CE">CE</option>
+                                <option value="RUC">RUC</option>
+                                <option value="PASAPORTE">Pasaporte</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Número</label>
+                            <input type="text" class="form-control" id="regVehTerceroNumero" placeholder="Ingrese número" disabled>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="regVehTerceroNombres" placeholder="Ingrese nombres" disabled>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Apellido paterno</label>
+                            <input type="text" class="form-control" id="regVehTerceroApePaterno" placeholder="Ingrese apellido paterno" disabled>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Apellido materno</label>
+                            <input type="text" class="form-control" id="regVehTerceroApeMaterno" placeholder="Ingrese apellido materno" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. CRÉDITO Y SIMULACIÓN -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>CRÉDITO Y SIMULACIÓN</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label">Producto</label>
+                            <select class="form-control select-arrow" id="regSimProducto">
+                                <option value="Credito Vehicular" selected>Crédito Vehicular</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Campaña comercial</label>
+                            <select class="form-control select-arrow" id="regSimCampana">
+                                <option value="SUV Mayo 2026" selected>SUV Mayo 2026</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Moneda Financiamiento</label>
+                            <input type="text" class="form-control" id="regSimMoneda" value="Soles (S/.)">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Tipo Cambio</label>
+                            <input type="text" class="form-control" id="regSimTipoCambio" value="3.78">
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Precio Vehículo</label>
+                            <input type="text" class="form-control" id="regSimPrecioVeh" value="$ 28,000.00">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Cuota Inicial</label>
+                            <input type="text" class="form-control" id="regSimCuotaInicial" value="$ 8,000.00">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">TEA</label>
+                            <input type="text" class="form-control" id="regSimTea" value="12.80%">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Plazo Meses</label>
+                            <input type="text" class="form-control" id="regSimPlazo" value="24 meses">
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Día Pago</label>
+                            <select class="form-control select-arrow" id="regSimDiaPago">
+                                <option value="03" selected>03</option>
+                                <option value="05">05</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Total Financiamiento</label>
+                            <input type="text" class="form-control" id="regTotalFinanciamiento" value="S/ 21,480.00">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. GASTOS Y PLAN GPX -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>GASTOS Y PLAN GPS</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label">Gastos Notariales</label>
+                            <select class="form-control select-arrow" id="regGastosNotariales">
+                                <option value="SI" selected>SÍ</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Gastos Registrales (sábana)</label>
+                            <select class="form-control select-arrow" id="regGastosRegistrales">
+                                <option value="SI" selected>SÍ</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Gastos Delivery Firma</label>
+                            <select class="form-control select-arrow" id="regGastosDelivery">
+                                <option value="SI" selected>SÍ</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Plan GPS</label>
+                            <select class="form-control select-arrow" id="regPlanGpx">
+                                <option value="Premium" selected>Premium</option>
+                                <option value="Estandar">Estandar</option>
+                                <option value="Ninguno">Ninguno</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group w-25">
+                            <label class="form-label">Gastos Inclusión GPS (cálculo)</label>
+                            <input type="text" class="form-control disabled" id="regGastosInclGpx" value="$ 650.00" readonly>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Cuotas Dobles</label>
+                            <select class="form-control select-arrow disabled is-readonly" id="regCuotasDobles" disabled aria-disabled="true">
+                                <option value="No" selected>No</option>
+                                <option value="Si">Si</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25" id="regMesesCuotasDoblesGroup" style="display: none;">
+                            <label class="form-label">Meses de cuotas dobles</label>
+                            <input type="text" class="form-control disabled is-readonly" id="regMesesCuotasDobles" value="" readonly disabled aria-disabled="true">
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Incluir Portes</label>
+                            <select class="form-control select-arrow" id="regIncluirPortes">
+                                <option value="No" selected>No</option>
+                                <option value="Si">Si</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. SEGUROS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>SEGUROS</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group w-25">
+                            <label class="form-label">Seguro Vehicular</label>
+                            <select class="form-control select-arrow" id="regSegVehicular">
+                                <option value="Propio" selected>Propio</option>
+                                <option value="Financiado">Financiado</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Costo Seguro Vehicular</label>
+                            <input type="text" class="form-control disabled" id="regSegVehCosto" value="S/ 1,200.00" readonly>
+                        </div>
+                        <div class="form-group w-25">
+                            <label class="form-label">Seguro Desgravamen</label>
+                            <select class="form-control select-arrow" id="regSegDesgravamen">
+                                <option value="SI" selected>SÍ</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-25 desgravamen-type-group" id="regTipoSeguroDesgravamenGroup">
+                            <label class="form-label">Tipo de seguro desgravamen</label>
+                            <select class="form-control select-arrow" id="regSegDesgProd">
+                                <option value="Individual" selected>Individual</option>
+                                <option value="Devolución">Devolución</option>
+                                <option value="Con asistencia">Con asistencia</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 7. Comentarios del Ejecutivo -->
+                <div class="card">
+                    <div class="comments-section" id="regComentariosSection">
+                        <label class="form-label" for="regComentarios" id="regComentariosLabel">Comentarios del Ejecutivo</label>
+                        <textarea class="form-control textarea-comments" id="regComentarios" rows="3" placeholder="Ingrese comentarios sobre la solicitud..."></textarea>
+                        <div class="comment-card-list" id="regComentariosCards" hidden></div>
+                        <div class="comment-reply-panel" id="regRespuestaOperacionesPanel" hidden>
+                            <div class="comment-reply-header">
+                                <div>
+                                    <h4>Nuevo comentario del Ejecutivo</h4>
+                                    <p>Registre el comentario para responder la observación de Operaciones.</p>
+                                </div>
+                            </div>
+                            <div class="comment-reply-input">
+                                <div class="comment-reply-input-header">
+                                    <label class="form-label" for="regRespuestaOperacionesComentario">Comentario de respuesta</label>
+                                    <span id="regRespuestaOperacionesCounter">0/250</span>
+                                </div>
+                                <textarea class="form-control textarea-comments" id="regRespuestaOperacionesComentario" maxlength="250" rows="3" placeholder="Ingrese comentario de respuesta para Operaciones"></textarea>
+                            </div>
+                        </div>
+                        <div class="documentaria-executive-comment" id="regDocumentariaComentarioPanel" hidden>
+                            <label class="form-label" for="regDocumentariaComentario">Comentarios del Ejecutivo</label>
+                            <textarea class="form-control textarea-comments" id="regDocumentariaComentario" maxlength="250" rows="3" placeholder="Ingrese un comentario para enviar la solicitud a Operaciones"></textarea>
+                            <div class="documentaria-comment-counter" id="regDocumentariaComentarioCounter">0/250</div>
+                        </div>
+                        <div class="comment-reply-panel" id="regRespuestaRiesgosPanel" hidden>
+                            <div class="comment-reply-header">
+                                <div>
+                                    <h4>Respuesta del Ejecutivo</h4>
+                                    <p>Registre el comentario para responder la observación o rechazo de Riesgos.</p>
+                                </div>
+                                <button type="button" class="btn btn-outline btn-responder-observacion" id="btnResponderObservacionRiesgos">
+                                    <span class="material-icons-outlined">reply</span>
+                                    Responder
+                                </button>
+                            </div>
+                            <div class="comment-reply-input" id="regRespuestaRiesgosInputBox" hidden>
+                                <div class="comment-reply-input-header">
+                                    <label class="form-label" for="regRespuestaRiesgosComentario">Comentario de respuesta</label>
+                                    <span id="regRespuestaRiesgosCounter">0/250</span>
+                                </div>
+                                <textarea class="form-control textarea-comments" id="regRespuestaRiesgosComentario" maxlength="250" rows="3" placeholder="Ingrese comentario de respuesta para Riesgos"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Buttons -->
+                <div class="registro-actions-footer">
+                    <button type="button" class="btn btn-outline btn-regresar-reg" id="btnRegresarRegistro">Regresar</button>
+                    <button type="button" class="btn btn-primary btn-enviar-operaciones" id="btnEnviarOperacionesSolicitud" hidden>Enviar a operaciones</button>
+                    <button type="button" class="btn btn-primary btn-pasar-riesgos" id="btnPasarRiesgos">Pasar a Riesgos</button>
+                </div>
+            </section>
+
+            <!-- ====== MODULE: BANDEJA DE ENTRADA ====== -->
+            <section class="module-page" id="moduloBandeja">
+                <div class="page-header" style="display: flex; align-items: center; gap: 8px;">
+                    <span class="material-icons-outlined" style="cursor: pointer; font-size: 24px; color: var(--primary-blue);" id="btnBandejaMenu">menu</span>
+                    <h1 class="page-title" style="margin-bottom: 0;">Bandeja de Entrada</h1>
+                </div>
+
+                <div class="bandeja-container">
+                    <!-- BÚSQUEDA Card -->
+                    <div class="card search-card-bandeja">
+                        <div class="search-card-title">BÚSQUEDA</div>
+                        <div class="search-grid-bandeja">
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">SOLICITUD</label>
+                                <input type="text" class="input-bandeja" id="searchSolId" placeholder="Ej. EFE001">
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">N° DOCUMENTO</label>
+                                <input type="text" class="input-bandeja" id="searchDocNum" placeholder="Ej. 12345678">
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">NOMBRES</label>
+                                <input type="text" class="input-bandeja" id="searchNombres" placeholder="Ingrese nombres">
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">SUCURSAL</label>
+                                <select class="select-bandeja" id="searchSucursal">
+                                    <option value="" selected>Seleccionar</option>
+                                    <option value="San Miguel">San Miguel</option>
+                                    <option value="Puruchuco">Puruchuco</option>
+                                    <option value="La Molina">La Molina</option>
+                                </select>
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">ETAPA</label>
+                                <select class="select-bandeja" id="searchEtapa">
+                                    <option value="" selected>Seleccionar</option>
+                                    <option value="SIMULACIÓN">SIMULACIÓN</option>
+                                    <option value="SOLICITUD">SOLICITUD</option>
+                                    <option value="RIESGOS">RIESGOS</option>
+                                    <option value="DOCUMENTARIA">DOCUMENTARIA</option>
+                                    <option value="FIRMA">FIRMA</option>
+                                    <option value="OPERACIONES">OPERACIONES</option>
+                                </select>
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">ESTADO</label>
+                                <select class="select-bandeja" id="searchEstado">
+                                    <option value="" selected>Seleccionar</option>
+                                    <option value="PENDIENTE">PENDIENTE</option>
+                                    <option value="APROBADO">APROBADO</option>
+                                    <option value="OBSERVADO">OBSERVADO</option>
+                                    <option value="RECHAZADO">RECHAZADO</option>
+                                    <option value="ACTIVADO">ACTIVADO</option>
+                                </select>
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">FECHA DESDE</label>
+                                <div class="date-input-wrapper-bandeja">
+                                    <input type="text" class="input-bandeja" id="searchFechaDesde" placeholder="dd/mm/aaaa">
+                                    <span class="material-icons-outlined date-icon-bandeja">calendar_today</span>
+                                </div>
+                            </div>
+                            <div class="form-group-bandeja">
+                                <label class="label-bandeja">FECHA HASTA</label>
+                                <div class="date-input-wrapper-bandeja">
+                                    <input type="text" class="input-bandeja" id="searchFechaHasta" placeholder="dd/mm/aaaa">
+                                    <span class="material-icons-outlined date-icon-bandeja">calendar_today</span>
+                                </div>
+                            </div>
+                            <div class="search-actions-bandeja">
+                                <button type="button" class="btn-bandeja btn-limpiar-bandeja" id="btnLimpiarBandeja">Limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Area Card -->
+                    <div class="card table-card-bandeja">
+                        <div class="table-card-header-bandeja">
+                            <div>
+                                <h3 class="table-card-title-bandeja">Solicitudes</h3>
+                                <p class="table-card-subtitle-bandeja" id="bandejaSubResults">6 resultados</p>
+                            </div>
+                            <div class="table-card-total-bandeja">
+                                <span class="blue-dot"></span> TOTAL <span id="bandejaTotalCount">6</span>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="table-responsive-bandeja">
+                            <table class="table-bandeja-new">
+                                <thead>
+                                    <tr>
+                                        <th class="sortable" data-sort="id">SOLICITUD <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th class="sortable" data-sort="numeroDocumento">N° DOCUMENTO <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th class="sortable" data-sort="cliente">NOMBRES <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th class="sortable" data-sort="tienda">SUCURSAL <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th class="sortable" data-sort="fecha">FECHA <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th class="sortable" data-sort="etapa">ETAPA <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th class="sortable" data-sort="estado">ESTADO <span class="sort-icon-bandeja">⁝</span></th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaBandejaNewBody">
+                                    <!-- Rows injected dynamically by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pagination-bandeja-new">
+                            <button type="button" class="pagination-arrow-btn" id="paginationPrevBtn" disabled>
+                                <span class="material-icons-outlined">chevron_left</span>
+                            </button>
+                            <span class="pagination-pages-text">Página <span id="currentPageNum">1</span> de <span id="totalPagesNum">1</span></span>
+                            <button type="button" class="pagination-arrow-btn" id="paginationNextBtn" disabled>
+                                <span class="material-icons-outlined">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== VIEW: BANDEJA DOCUMENTARIA ====== -->
+            <section class="module-page" id="moduloBandejaDocumentaria">
+                <div class="documentaria-page">
+                    <div class="stage-navigation-tabs documentaria-stage-tabs" id="documentariaStageTabs" aria-label="Etapas de la solicitud"></div>
+
+                    <div class="documentaria-summary-card">
+                        <div class="documentaria-summary-item documentaria-summary-solicitud">
+                            <span class="documentaria-summary-label">SOLICITUD</span>
+                            <strong id="docSolicitudId">EFE004</strong>
+                        </div>
+                        <div class="documentaria-summary-item">
+                            <span class="documentaria-summary-label">ETAPA</span>
+                            <strong class="doc-stage-badge" id="docEtapa">DOCUMENTARIA</strong>
+                        </div>
+                        <div class="documentaria-summary-item documentaria-summary-estado" id="docEstadoWrapper" hidden>
+                            <span class="documentaria-summary-label">ESTADO</span>
+                            <strong class="doc-status-badge" id="docEstado">PENDIENTE</strong>
+                        </div>
+                        <div class="documentaria-summary-item">
+                            <span class="documentaria-summary-label">N° Doc</span>
+                            <strong id="docResumenNumero">71865987</strong>
+                        </div>
+                        <div class="documentaria-summary-item">
+                            <span class="documentaria-summary-label">Cliente</span>
+                            <strong id="docResumenCliente">Pérez García Juan</strong>
+                        </div>
+                        <div class="documentaria-summary-item documentaria-summary-date">
+                            <span class="material-icons-outlined documentaria-summary-icon">calendar_today</span>
+                            <div>
+                                <span class="documentaria-summary-label">Fecha simulación</span>
+                                <strong id="docFechaSimulacion">22-05-2026 15:30:00</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="documentaria-shell">
+                        <div class="documentaria-main">
+
+                            <div class="documentaria-tabs" role="tablist" aria-label="Pestañas de bandeja documentaria">
+                                <button type="button" class="documentaria-tab active" data-doc-tab="vehiculo">
+                                    <span>01</span>
+                                    <strong>Datos de Vehículo</strong>
+                                    <small>Detalle de la unidad</small>
+                                </button>
+                                <button type="button" class="documentaria-tab" data-doc-tab="domiciliaria">
+                                    <span>02</span>
+                                    <strong>Verificación Domiciliaria</strong>
+                                    <small>Resultado Verifed</small>
+                                </button>
+                                <button type="button" class="documentaria-tab" data-doc-tab="cliente">
+                                    <span>03</span>
+                                    <strong>Datos de Cliente</strong>
+                                    <small>Información del solicitante</small>
+                                </button>
+                            </div>
+
+                            <div class="documentaria-card documentaria-tab-panel active" id="docTabVehiculo">
+                                <h3>GARANTÍA</h3>
+                                <div class="documentaria-form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Estado del vehículo</label>
+                                        <select class="form-control doc-control" disabled><option>Nuevo</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Valor del vehículo (USD) <span class="required">*</span></label>
+                                        <input class="form-control doc-control" type="text" value="22000.00" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Valor del vehículo (S/)</label>
+                                        <input class="form-control doc-control" type="text" value="S/ 82,500.00" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Año modelo <span class="required">*</span></label>
+                                        <input class="form-control doc-control" type="text" value="2025" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Marca <span class="required">*</span></label>
+                                        <input class="form-control doc-control" type="text" value="Toyota" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Modelo <span class="required">*</span></label>
+                                        <input class="form-control doc-control" type="text" value="Yaris" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Color <span class="required">*</span></label>
+                                        <input class="form-control" id="docGarantiaColor" data-garantia-required="true" type="text" placeholder="Ingrese color">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Tipo de vehículo <span class="required">*</span></label>
+                                        <select class="form-control" id="docGarantiaTipoVehiculo" data-garantia-required="true"><option value="" selected>Seleccione...</option><option value="AUTO">Auto</option><option value="CAMIONETA">Camioneta</option><option value="SUV">SUV</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">VIN <span class="required">*</span></label>
+                                        <input class="form-control" id="docGarantiaVin" data-garantia-required="true" type="text" placeholder="Ingrese VIN">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">N° de motor <span class="required">*</span></label>
+                                        <input class="form-control" id="docGarantiaMotor" data-garantia-required="true" type="text" placeholder="Ingrese N° motor">
+                                    </div>
+                                    <div class="form-group documentaria-span-2 garantia-contract-actions" id="docGarantiaContratoActions" hidden>
+                                        <button type="button" class="btn-generar-contrato" id="btnGenerarContratoGarantia">
+                                            <span class="material-icons-outlined">article</span>
+                                            <span>Generar contrato</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="documentaria-card documentaria-tab-panel" id="docTabDomiciliaria">
+                                <h3>VERIFICACIÓN DOMICILIARIA</h3>
+                                <div class="documentaria-form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Proveedor</label>
+                                        <input class="form-control doc-control" type="text" value="Verifed" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Estado</label>
+                                        <input class="form-control doc-control" type="text" value="Aprobado" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha Resultado</label>
+                                        <input class="form-control doc-control" type="text" value="10/06/2026" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Observación</label>
+                                        <input class="form-control doc-control" type="text" value="" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="documentaria-card documentaria-tab-panel documentaria-client-card" id="docTabCliente">
+                                <h3>DATOS DE CLIENTE</h3>
+                                <div class="documentaria-client-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteTipoDoc">Tipo de documento</label>
+                                        <input class="form-control doc-locked-field" id="docClienteTipoDoc" type="text" value="DNI" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteNumero">Número documento</label>
+                                        <input class="form-control doc-locked-field" id="docClienteNumero" type="text" value="71865987" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteNombres">Nombres</label>
+                                        <input class="form-control" id="docClienteNombres" type="text" value="Juan" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteApePaterno">Apellido paterno</label>
+                                        <input class="form-control" id="docClienteApePaterno" type="text" value="Pérez" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteApeMaterno">Apellido materno</label>
+                                        <input class="form-control" id="docClienteApeMaterno" type="text" value="García" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteFechaNacimiento">Fecha de nacimiento</label>
+                                        <input class="form-control" id="docClienteFechaNacimiento" type="text" value="11/05/1995" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteTelefono">Número de celular <span class="required">*</span></label>
+                                        <input class="form-control" id="docClienteTelefono" type="text" value="922159933" readonly>
+                                        <span class="form-hint">El número ingresado se enviará la URL de políticas de privacidad.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteCorreo">Correo electrónico <span class="required">*</span></label>
+                                        <input class="form-control" id="docClienteCorreo" type="text" value="juan.perez@email.com" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteSexo">Sexo</label>
+                                        <select class="form-control" id="docClienteSexo" disabled>
+                                            <option value="Masculino" selected>Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group documentaria-client-span-2">
+                                        <label class="form-label" for="docClienteNacionalidad">Nacionalidad</label>
+                                        <input class="form-control" id="docClienteNacionalidad" type="text" value="Peruana" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteResidencia">Residencia</label>
+                                        <input class="form-control" id="docClienteResidencia" type="text" value="Perú" readonly>
+                                    </div>
+                                    <div class="form-group documentaria-client-span-4">
+                                        <label class="form-label" for="docClienteDireccion">Dirección de domicilio <span class="required">*</span></label>
+                                        <input class="form-control" id="docClienteDireccion" type="text" value="Av. Las Palmeras 123, San Miguel" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteDepartamento">Departamento <span class="required">*</span></label>
+                                        <select class="form-control" id="docClienteDepartamento" disabled>
+                                            <option value="Lima" selected>Lima</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteProvincia">Provincia <span class="required">*</span></label>
+                                        <select class="form-control" id="docClienteProvincia" disabled>
+                                            <option value="Lima" selected>Lima</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteDistrito">Distrito <span class="required">*</span></label>
+                                        <select class="form-control" id="docClienteDistrito" disabled>
+                                            <option value="San Miguel" selected>San Miguel</option>
+                                            <option value="La Molina">La Molina</option>
+                                            <option value="Santiago de Surco">Santiago de Surco</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteEstadoCivil">Estado civil <span class="required">*</span></label>
+                                        <select class="form-control" id="docClienteEstadoCivil" disabled>
+                                            <option value="Soltero">Soltero</option>
+                                            <option value="Casado" selected>Casado</option>
+                                            <option value="Conviviente">Conviviente</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="docClienteSeparacionBienes">Separación de bienes</label>
+                                        <select class="form-control doc-locked-field" id="docClienteSeparacionBienes" disabled>
+                                            <option value="No" selected>No</option>
+                                            <option value="Si">Sí</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="documentaria-card documentaria-documents" id="docPostAprobacionCard">
+                                <div class="documentaria-documents-header">
+                                    <h3>Documentos generados para Post Aprobación:</h3>
+                                    <div class="documentaria-documents-actions">
+                                        <button type="button" class="doc-download-all-btn" id="btnDescargarTodosDocs">
+                                            <span class="material-icons-outlined">download</span>
+                                            Descargar todos
+                                        </button>
+                                        <button type="button" class="doc-toggle-post-btn" id="btnVerMasPostDocs" hidden>
+                                            <span class="material-icons-outlined">expand_more</span>
+                                            Ver más
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul id="docPostAprobacionList">
+                                    <li><span>Carta de aprobación</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Carta de aprobación"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Contrato de crédito</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Contrato de crédito"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Pagaré</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Pagaré"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Hoja resumen (TCEA)</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Hoja resumen (TCEA)"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Cronograma preliminar</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Cronograma preliminar"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Póliza de seguro vehicular</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Póliza de seguro vehicular"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Póliza de desgravamen</span><div><button type="button" class="doc-icon-btn" aria-label="Documento generado"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn" data-doc-name="Póliza de desgravamen"><span class="material-icons-outlined">download</span>Descargar</button></div></li>
+                                    <li><span>Contrato de garantía</span><div><button type="button" class="doc-icon-btn warning" data-doc-icon="contrato-garantia" aria-label="Documento pendiente"><span class="material-icons-outlined">description</span></button><button type="button" class="doc-download-btn is-disabled" id="btnDescargarContratoGarantia" data-doc-name="Contrato de garantía" disabled aria-disabled="true" title="Complete los datos del cuadro GARANTÍA para habilitar la descarga"><span class="material-icons-outlined">lock</span>Descargar</button></div></li>
+                                </ul>
+                            </div>
+
+                            <div class="documentaria-card documentaria-checklist2 is-locked" id="docChecklist2Card">
+                                <div class="documentaria-checklist2-header">
+                                    <div>
+                                        <h3>CheckList 2</h3>
+                                        <p id="docChecklist2Subtitle" hidden>Adjunta los documentos PDF requeridos para la etapa documentaria.</p>
+                                    </div>
+                                    <span class="documentaria-checklist2-counter" id="docChecklist2Counter" hidden>0/15 documentos</span>
+                                </div>
+                                <div class="documentaria-checklist2-content" id="docChecklist2Content" hidden>
+                                    <table class="documentaria-checklist2-table" aria-label="Documentos adjuntos del CheckList 2">
+                                        <thead>
+                                            <tr>
+                                                <th>ARCHIVO PDF</th>
+                                                <th>ACCIÓN</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="docChecklist2Body">
+                                            <!-- Dynamic rows injected by JS -->
+                                        </tbody>
+                                    </table>
+                                    <div class="documentaria-checklist2-comment" id="docChecklist2CommentWrapper">
+                                        <div class="documentaria-checklist2-comment-header">
+                                            <label class="form-label" for="docChecklist2Comentario" id="docChecklist2ComentarioLabel">Comentario</label>
+                                            <span id="docChecklist2ComentarioCounter">0/250</span>
+                                        </div>
+                                        <textarea class="form-control documentaria-checklist2-textarea" id="docChecklist2Comentario" maxlength="250" rows="4" placeholder="Ingrese comentario para operaciones"></textarea>
+                                    </div>
+                                    <div class="documentaria-operations-observation" id="docOperacionesObservation" hidden>
+                                        <div class="documentaria-operations-observation-header">
+                                            <div>
+                                                <h4>Comentario de observaciones / rechazo</h4>
+                                                <p>Detalle registrado por el analista de operaciones.</p>
+                                            </div>
+                                            <button type="button" class="btn btn-outline btn-responder-observacion" id="btnResponderObservacionOperaciones">
+                                                <span class="material-icons-outlined">reply</span>
+                                                Responder
+                                            </button>
+                                        </div>
+                                        <div class="comment-card-list documentaria-comment-card-list" id="docOpsComentarioCards" hidden></div>
+                                        <div class="documentaria-operations-comment-box documentaria-executive-comment-box" id="docOpsExecutiveCommentBox" hidden>
+                                            <span>Comentario del ejecutivo</span>
+                                            <p id="docOpsComentarioEjecutivo">-</p>
+                                        </div>
+                                        <div class="documentaria-operations-observation-grid">
+                                            <div>
+                                                <span>Analista de operaciones</span>
+                                                <strong id="docOpsAnalista">-</strong>
+                                            </div>
+                                            <div>
+                                                <span id="docOpsMotivoLabel">Motivo de observación</span>
+                                                <strong id="docOpsMotivo">-</strong>
+                                            </div>
+                                            <div>
+                                                <span>Fecha y hora</span>
+                                                <strong id="docOpsFechaHora">-</strong>
+                                            </div>
+                                        </div>
+                                        <div class="documentaria-operations-comment-box">
+                                            <span>Comentario del analista de operaciones</span>
+                                            <p id="docOpsComentarioAnalista">-</p>
+                                        </div>
+                                    </div>
+                                    <input type="file" id="docChecklist2FileInput" style="display: none;" accept="application/pdf">
+                                </div>
+                            </div>
+
+                            <div class="documentaria-actions">
+                                <button type="button" class="btn btn-outline" id="btnVolverBandejaDocumentaria">Volver a Bandeja</button>
+                                <div class="documentaria-checklist2-footer" id="docChecklist2Footer" hidden>
+                                    <button type="button" class="btn btn-primary doc-checklist2-send-btn" id="btnEnviarOperacionesChecklist2" disabled>
+                                        <span class="material-icons-outlined">send</span>
+                                        Enviar a operaciones
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <aside class="documentaria-tracking" aria-label="Tracking histórico">
+                            <h3>Tracking histórico</h3>
+                            <ol>
+                                <li class="done"><span>1</span><strong>Simulación</strong><small>20/05/2026 09:20</small></li>
+                                <li class="done"><span>2</span><strong>Solicitud recibida</strong><small>20/05/2026 09:45</small></li>
+                                <li class="done"><span>3</span><strong>Revisión Riesgos</strong><small>22/05/2026 15:30</small></li>
+                                <li class="done"><span>4</span><strong>Aprobación</strong><small>22/05/2026 15:30</small></li>
+                                <li class="current"><span>5</span><strong>Documentaria</strong><small>Etapa actual</small></li>
+                                <li><span>6</span><strong>Firma</strong><small>Pendiente</small></li>
+                                <li><span>7</span><strong>Check List 2</strong><small>Pendiente</small></li>
+                                <li><span>8</span><strong>Activación Bantotal</strong><small>Pendiente</small></li>
+                            </ol>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+
+
+        </main>
+    </div>
+
+    <!-- ======== TOAST CONTAINER ======== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ======== MODAL: Detalle Solicitud ======== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detalle de solicitud</h3>
+                <button class="modal-close" id="modalClose">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content injected by JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="modalBtnCancel">Cerrar</button>
+                <button class="btn btn-primary" id="modalBtnAction">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======== MODAL: Nombre del Documento ======== -->
+    <div class="modal-overlay" id="modalDocNameOverlay">
+        <div class="modal" style="max-width: 420px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);">
+            <div class="modal-body" style="padding: 24px;">
+                <h3 style="font-size: 1.3rem; font-weight: 700; color: #0d2f81; margin-bottom: 8px;">Nombre del Documento</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">Coloque el nombre descriptivo para el archivo PDF seleccionado.</p>
+                <input type="text" id="inputDocName" class="form-control" style="width: 100%; height: 42px; border: 1px solid var(--input-border); border-radius: var(--radius-md); font-size: 0.9rem; padding: 0 12px; margin-bottom: 24px; color: var(--text-primary); font-weight: 500;">
+                <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                    <button type="button" class="btn btn-outline" id="btnCancelDocName" style="background-color: #6c757d; color: white; border: none; min-width: 100px; border-radius: var(--radius-md); height: 38px; font-weight: 600; font-size: 0.85rem;">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveDocName" style="min-width: 100px; border-radius: var(--radius-md); height: 38px; font-weight: 600; font-size: 0.85rem;">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
