@@ -2279,6 +2279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><strong>${plazo} meses</strong></td>
                 <td>${(tea * 100).toFixed(2)}%</td>
                 <td>${formatMoneyValue(cuota, currency)}</td>
+                <td>${formatMoneyValue(cuotaMensualMaxima, 'S/').replace('S/ ', 'S/. ')}</td>
                 <td><span class="capacidad-badge ${cumple ? 'ok' : 'warning'}">${cumple ? 'Cumple' : 'No cumple'}</span></td>
             `;
             tr.addEventListener('click', () => {
@@ -2317,16 +2318,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (calcIngresoDeclaradoInput) {
         updateCalcCasoPilotoState();
-        calcIngresoDeclaradoInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^\d.,]/g, '');
-            updateCalcCasoPilotoState();
-            const resultadoVisible = document.getElementById('calcResultadoCard').style.display !== 'none' && document.querySelector('#calcCuotasBody tr');
-            if (resultadoVisible) {
-                recalcularResultadoCalculo(false);
-            } else {
-                actualizarCapacidadCuotaMaximaCalculo(false);
-            }
-        });
     }
 
     function normalizarDecimalInput(value) {
@@ -5260,6 +5251,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupIngresosList('titular');
     setupIngresosList('conyuge');
+
+
+    // ============================
+    // INGRESOS DESDE LA PANTALLA DE CÁLCULO
+    // ============================
+    const ingresosCalculoDesplegable = document.getElementById('ingresosCalculoDesplegable');
+    const ingresosCalculoBody = document.getElementById('ingresosCalculoBody');
+    const btnAbrirIngresosCalculo = document.getElementById('btnAbrirIngresosCalculo');
+    const btnCerrarIngresosCalculo = document.getElementById('btnCerrarIngresosCalculo');
+    const ingresosCardOriginal = document.getElementById('ingresosCard');
+    const ingresosCardPlaceholder = document.createComment('ubicacion-original-ingresos');
+    let ingresosCalculoAbierto = false;
+    let ingresosCardDisplayOriginal = '';
+    let ingresosCardHiddenOriginal = false;
+    let ingresosConyugeDisplayOriginal = '';
+    let ingresosConyugeHiddenOriginal = false;
+
+    function getTotalIngresoDeclaradoCalculo() {
+        const totalTitular = getTotalIngresosFor('titular');
+        const incluyeConyuge = !!(toggleConyuge && toggleConyuge.checked);
+        return totalTitular + (incluyeConyuge ? getTotalIngresosFor('conyuge') : 0);
+    }
+
+    function reflejarIngresosEnCalculo() {
+        if (!calcIngresoDeclaradoInput) return;
+        const total = getTotalIngresoDeclaradoCalculo();
+        calcIngresoDeclaradoInput.value = total > 0 ? total.toFixed(2) : '';
+        updateCalcCasoPilotoState();
+        const resultadoVisible = document.getElementById('calcResultadoCard').style.display !== 'none' && document.querySelector('#calcCuotasBody tr');
+        if (resultadoVisible) {
+            recalcularResultadoCalculo(false);
+        } else {
+            actualizarCapacidadCuotaMaximaCalculo(false);
+        }
+    }
+
+    function abrirIngresosDesdeCalculo() {
+        if (!ingresosCalculoDesplegable || !ingresosCalculoBody || !ingresosCardOriginal || resultadoActionsLockedByStage) return;
+        if (ingresosCalculoAbierto) {
+            cerrarIngresosDesdeCalculo();
+            return;
+        }
+        if (!ingresosCardOriginal.parentNode) return;
+
+        ingresosCardDisplayOriginal = ingresosCardOriginal.style.display;
+        ingresosCardHiddenOriginal = ingresosCardOriginal.hidden;
+        ingresosCardOriginal.parentNode.insertBefore(ingresosCardPlaceholder, ingresosCardOriginal);
+        ingresosCalculoBody.appendChild(ingresosCardOriginal);
+        ingresosCardOriginal.classList.add('ingresos-card-en-calculo');
+        // En Cálculo el bloque debe mostrarse siempre, aunque en Solicitud haya quedado
+        // oculto por las reglas de carretera.
+        ingresosCardOriginal.style.display = 'block';
+        ingresosCardOriginal.hidden = false;
+
+        const conyugeSection = document.getElementById('ingresosConyugeCard');
+        if (conyugeSection) {
+            ingresosConyugeDisplayOriginal = conyugeSection.style.display;
+            ingresosConyugeHiddenOriginal = conyugeSection.hidden;
+            const mostrarConyuge = !!(toggleConyuge && toggleConyuge.checked);
+            conyugeSection.style.display = mostrarConyuge ? 'block' : 'none';
+            conyugeSection.hidden = !mostrarConyuge;
+        }
+        updateTotalIngresosFor('titular');
+        updateTotalIngresosFor('conyuge');
+        updateAllAgregarIngresoButtonsState();
+        reflejarIngresosEnCalculo();
+
+        ingresosCalculoDesplegable.hidden = false;
+        btnAbrirIngresosCalculo?.setAttribute('aria-expanded', 'true');
+        btnAbrirIngresosCalculo?.classList.add('active');
+        ingresosCalculoAbierto = true;
+        ingresosCalculoDesplegable.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function cerrarIngresosDesdeCalculo() {
+        if (!ingresosCalculoAbierto || !ingresosCalculoDesplegable || !ingresosCardOriginal) return;
+        reflejarIngresosEnCalculo();
+
+        if (ingresosCardPlaceholder.parentNode) {
+            ingresosCardPlaceholder.parentNode.insertBefore(ingresosCardOriginal, ingresosCardPlaceholder);
+            ingresosCardPlaceholder.remove();
+        }
+        ingresosCardOriginal.classList.remove('ingresos-card-en-calculo');
+        ingresosCardOriginal.style.display = ingresosCardDisplayOriginal;
+        ingresosCardOriginal.hidden = ingresosCardHiddenOriginal;
+        const conyugeSection = document.getElementById('ingresosConyugeCard');
+        if (conyugeSection) {
+            conyugeSection.style.display = ingresosConyugeDisplayOriginal;
+            conyugeSection.hidden = ingresosConyugeHiddenOriginal;
+        }
+        ingresosCalculoDesplegable.hidden = true;
+        btnAbrirIngresosCalculo?.setAttribute('aria-expanded', 'false');
+        btnAbrirIngresosCalculo?.classList.remove('active');
+        ingresosCalculoAbierto = false;
+        actualizarVisibilidadIngresosSolicitud();
+    }
+
+    if (btnAbrirIngresosCalculo) btnAbrirIngresosCalculo.addEventListener('click', abrirIngresosDesdeCalculo);
+    if (btnCerrarIngresosCalculo) btnCerrarIngresosCalculo.addEventListener('click', cerrarIngresosDesdeCalculo);
+    if (ingresosCardOriginal) {
+        ingresosCardOriginal.addEventListener('input', () => {
+            if (ingresosCalculoAbierto) reflejarIngresosEnCalculo();
+        });
+        ingresosCardOriginal.addEventListener('change', () => {
+            if (ingresosCalculoAbierto) reflejarIngresosEnCalculo();
+        });
+    }
 
 
     const REGISTRO_EDITABLE_SECTION_FIELDS = {

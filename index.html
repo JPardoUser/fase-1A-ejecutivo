@@ -524,13 +524,28 @@
                                 <div class="form-group calc-ingreso-declarado-group">
                                     <label class="form-label" for="calcIngresoDeclarado">Ingreso declarado (Soles)</label>
                                     <div class="calc-ingreso-piloto-row">
-                                        <input type="text" class="form-control" id="calcIngresoDeclarado" placeholder="00.00" value="">
+                                        <button type="button" class="calc-ingreso-trigger" id="btnAbrirIngresosCalculo" aria-expanded="false" aria-controls="ingresosCalculoDesplegable" aria-label="Desplegar ingresos declarados">
+                                            <input type="text" class="form-control" id="calcIngresoDeclarado" placeholder="00.00" value="" readonly tabindex="-1">
+                                            <span class="material-icons-outlined">expand_more</span>
+                                        </button>
                                         <label class="calc-piloto-checkbox-card" for="calcCasoPiloto">
                                             <input type="checkbox" id="calcCasoPiloto" disabled>
                                             <span>El caso cumple las condiciones del piloto</span>
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="ingresos-calculo-desplegable" id="ingresosCalculoDesplegable" hidden>
+                                <div class="ingresos-calculo-desplegable-header">
+                                    <div>
+                                        <h3>INGRESOS</h3>
+                                        <p>Registra los ingresos declarados. El total se actualizará automáticamente en “Ingreso declarado (Soles)”.</p>
+                                    </div>
+                                    <button type="button" class="ingresos-calculo-ocultar" id="btnCerrarIngresosCalculo" aria-label="Ocultar ingresos">
+                                        <span class="material-icons-outlined">expand_less</span>
+                                    </button>
+                                </div>
+                                <div class="ingresos-calculo-body" id="ingresosCalculoBody"></div>
                             </div>
                         </section>
                     </div>
@@ -578,6 +593,7 @@
                                     <th>Plazo</th>
                                     <th>TEA</th>
                                     <th>Cuota</th>
+                                    <th>CME</th>
                                     <th>Capacidad</th>
                                 </tr>
                             </thead>
@@ -1872,6 +1888,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="app.js"></script>
 </body>

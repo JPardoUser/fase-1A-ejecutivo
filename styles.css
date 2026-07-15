@@ -5006,3 +5006,109 @@ select.form-control {
 #btnEnviarOperacionesSolicitud[hidden] {
     display: none !important;
 }
+
+
+/* === INGRESOS DESDE CÁLCULO === */
+.calc-ingreso-trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+}
+
+.calc-ingreso-trigger .form-control {
+    width: 100%;
+    padding-right: 42px;
+    cursor: pointer;
+    background: var(--bg-white);
+    color: var(--text-primary);
+}
+
+.calc-ingreso-trigger > .material-icons-outlined {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--primary-blue);
+    pointer-events: none;
+    transition: transform var(--transition-fast);
+}
+
+.calc-ingreso-trigger.active > .material-icons-outlined {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.calc-ingreso-trigger:hover .form-control,
+.calc-ingreso-trigger:focus-visible .form-control {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.ingresos-calculo-desplegable {
+    margin-top: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: #f8fafc;
+    overflow: hidden;
+    animation: fadeInModule 0.25s ease;
+}
+
+.ingresos-calculo-desplegable[hidden] {
+    display: none !important;
+}
+
+.ingresos-calculo-desplegable-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-white);
+}
+
+.ingresos-calculo-desplegable-header h3 {
+    color: var(--primary-blue);
+    font-size: 1rem;
+    margin-bottom: 3px;
+}
+
+.ingresos-calculo-desplegable-header p {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+}
+
+.ingresos-calculo-ocultar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-blue);
+}
+
+.ingresos-calculo-ocultar:hover {
+    background: var(--bg-body);
+}
+
+.ingresos-calculo-body {
+    padding: 16px;
+}
+
+.ingresos-calculo-body .ingresos-card-en-calculo {
+    margin: 0;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .ingresos-calculo-desplegable-header {
+        align-items: flex-start;
+        padding: 14px;
+    }
+    .ingresos-calculo-body {
+        padding: 10px;
+    }
+}
